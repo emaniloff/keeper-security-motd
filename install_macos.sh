@@ -1,6 +1,5 @@
 #!/bin/bash
-# Keeper Security MOTD - Universal Installation Script
-# Auto-detects platform and installs appropriate version
+# Keeper Security MOTD - macOS Installation Script
 
 set -e
 
@@ -17,55 +16,25 @@ echo -e "${CYAN}"
 cat << 'EOF'
 ╔═══════════════════════════════════════════════════════╗
 ║                                                       ║
-║       Keeper Security MOTD - Universal Installer      ║
+║    Keeper Security MOTD - macOS Installer             ║
 ║                                                       ║
 ╚═══════════════════════════════════════════════════════╝
 EOF
 echo -e "${RESET}"
 
-# Detect platform
-detect_platform() {
-    case "$(uname -s)" in
-        Linux*)     echo "linux";;
-        Darwin*)    echo "macos";;
-        CYGWIN*|MINGW*|MSYS*) echo "windows";;
-        FreeBSD*)   echo "freebsd";;
-        *)          echo "unknown";;
-    esac
-}
-
-PLATFORM=$(detect_platform)
-
 echo ""
-echo -e "${BLUE}Detected platform: ${BWHITE}$PLATFORM${RESET}"
+echo -e "${BLUE}Installing Keeper Security MOTD for macOS...${RESET}"
 echo ""
 
-# Route to platform-specific installer
-case "$PLATFORM" in
-    macos)
-        if [ -f "install_macos.sh" ]; then
-            echo -e "${GREEN}Running macOS installer...${RESET}"
-            bash install_macos.sh
-        else
-            echo -e "${YELLOW}Platform-specific installer not found, using universal installer...${RESET}"
-            # Fall through to universal installer below
-        fi
-        ;;
+# Check if we're on macOS
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo -e "${RED}❌ This installer is for macOS only!${RESET}"
+    echo -e "${YELLOW}For Linux, use: ./install.sh${RESET}"
+    echo -e "${YELLOW}For Windows, use: install_windows.ps1${RESET}"
+    exit 1
+fi
 
-    windows)
-        echo -e "${YELLOW}Windows detected!${RESET}"
-        echo -e "${CYAN}Please use PowerShell to run: ${BWHITE}install_windows.ps1${RESET}"
-        echo -e "${CYAN}Or download from: https://github.com/jlima8900/keeper-security-motd${RESET}"
-        exit 0
-        ;;
-
-    linux|freebsd|*)
-        echo -e "${GREEN}Installing for $PLATFORM...${RESET}"
-        # Continue with universal installer below
-        ;;
-esac
-
-# Universal Linux/Unix installer
+# Installation directory
 INSTALL_DIR="$HOME"
 MOTD_SCRIPT=".keeper_motd.sh"
 TIPS_FILE=".keeper_security_tips.txt"
@@ -81,53 +50,74 @@ if [ -f "$INSTALL_DIR/$TIPS_FILE" ]; then
     mv "$INSTALL_DIR/$TIPS_FILE" "$INSTALL_DIR/$TIPS_FILE.backup.$(date +%Y%m%d_%H%M%S)"
 fi
 
-# Copy files - use universal script if available, otherwise use original
-if [ -f "keeper_motd_universal.sh" ]; then
-    echo -e "${GREEN}Installing universal MOTD script to $INSTALL_DIR/$MOTD_SCRIPT${RESET}"
-    cp keeper_motd_universal.sh "$INSTALL_DIR/$MOTD_SCRIPT"
-else
-    echo -e "${GREEN}Installing MOTD script to $INSTALL_DIR/$MOTD_SCRIPT${RESET}"
-    cp keeper_motd.sh "$INSTALL_DIR/$MOTD_SCRIPT"
-fi
-
+# Copy files
+echo -e "${GREEN}Installing universal MOTD script...${RESET}"
+cp keeper_motd_universal.sh "$INSTALL_DIR/$MOTD_SCRIPT"
 chmod +x "$INSTALL_DIR/$MOTD_SCRIPT"
 
-echo -e "${GREEN}Installing security tips to $INSTALL_DIR/$TIPS_FILE${RESET}"
+echo -e "${GREEN}Installing security tips...${RESET}"
 cp security_tips.txt "$INSTALL_DIR/$TIPS_FILE"
 chmod 644 "$INSTALL_DIR/$TIPS_FILE"
 
-# Detect shell and configure
+# Detect shell
 SHELL_RC=""
-if [ -n "$ZSH_VERSION" ] || [ "$SHELL" = "$(which zsh 2>/dev/null)" ]; then
-    SHELL_RC="$HOME/.zshrc"
-elif [ -n "$BASH_VERSION" ] || [ "$SHELL" = "$(which bash 2>/dev/null)" ]; then
-    SHELL_RC="$HOME/.bashrc"
-fi
+CURRENT_SHELL=$(basename "$SHELL")
 
-if [ -n "$SHELL_RC" ]; then
-    echo ""
-    echo -e "${CYAN}Detected shell configuration: $SHELL_RC${RESET}"
+case "$CURRENT_SHELL" in
+    zsh)
+        SHELL_RC="$HOME/.zshrc"
+        ;;
+    bash)
+        # macOS uses .bash_profile for login shells
+        if [ -f "$HOME/.bash_profile" ]; then
+            SHELL_RC="$HOME/.bash_profile"
+        else
+            SHELL_RC="$HOME/.bashrc"
+        fi
+        ;;
+    *)
+        echo -e "${YELLOW}⚠️  Unknown shell: $CURRENT_SHELL${RESET}"
+        SHELL_RC="$HOME/.profile"
+        ;;
+esac
 
-    # Check if already configured
-    if grep -q "keeper_motd.sh" "$SHELL_RC" 2>/dev/null; then
-        echo -e "${YELLOW}MOTD already configured in $SHELL_RC${RESET}"
-    else
-        echo -e "${GREEN}Adding MOTD to $SHELL_RC${RESET}"
-        cat >> "$SHELL_RC" << 'SHELLRC'
+echo ""
+echo -e "${CYAN}Detected shell: $CURRENT_SHELL${RESET}"
+echo -e "${CYAN}Configuration file: $SHELL_RC${RESET}"
+
+# Check if already configured
+if grep -q "keeper_motd.sh" "$SHELL_RC" 2>/dev/null; then
+    echo -e "${YELLOW}MOTD already configured in $SHELL_RC${RESET}"
+else
+    echo -e "${GREEN}Adding MOTD to $SHELL_RC${RESET}"
+
+    # Create shell RC if it doesn't exist
+    touch "$SHELL_RC"
+
+    cat >> "$SHELL_RC" << 'SHELLRC'
 
 # Display Keeper Security MOTD on login (only for interactive shells)
 if [ -n "$PS1" ] && [ -f ~/.keeper_motd.sh ]; then
     ~/.keeper_motd.sh
 fi
 SHELLRC
+fi
+
+# macOS-specific: Check if GNU coreutils are installed
+echo ""
+echo -e "${CYAN}Checking for GNU coreutils...${RESET}"
+if ! command -v gshuf &> /dev/null; then
+    echo -e "${YELLOW}⚠️  GNU coreutils not found. Installing via Homebrew (recommended)...${RESET}"
+    if command -v brew &> /dev/null; then
+        echo -e "${GREEN}Installing GNU coreutils via Homebrew...${RESET}"
+        brew install coreutils 2>/dev/null || echo -e "${YELLOW}Please install manually: brew install coreutils${RESET}"
+    else
+        echo -e "${YELLOW}Homebrew not found. Please install it from: https://brew.sh${RESET}"
+        echo -e "${YELLOW}Then run: brew install coreutils${RESET}"
+        echo -e "${YELLOW}(MOTD will still work, but tips will not rotate)${RESET}"
     fi
 else
-    echo -e "${YELLOW}⚠️  Could not detect shell. Please manually add the following to your shell RC file:${RESET}"
-    echo ""
-    echo -e "${CYAN}if [ -n \"\$PS1\" ] && [ -f ~/.keeper_motd.sh ]; then${RESET}"
-    echo -e "${CYAN}    ~/.keeper_motd.sh${RESET}"
-    echo -e "${CYAN}fi${RESET}"
-    echo ""
+    echo -e "${GREEN}✅ GNU coreutils already installed${RESET}"
 fi
 
 # Test installation
@@ -154,7 +144,7 @@ echo -e "${GREEN}║                                                       ║${
 echo -e "${GREEN}╚═══════════════════════════════════════════════════════╝${RESET}"
 echo ""
 echo -e "${CYAN}Next steps:${RESET}"
-echo -e "  1. Log out and log back in to see the MOTD"
+echo -e "  1. Open a new terminal to see the MOTD"
 echo -e "  2. Or run: ${YELLOW}source $SHELL_RC${RESET}"
 echo -e "  3. Customize tips: ${YELLOW}nano ~/.keeper_security_tips.txt${RESET}"
 echo ""
