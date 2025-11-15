@@ -54,8 +54,29 @@ CPU_CORES=$(nproc)
 DOCKER_RUNNING=$(docker ps -q 2>/dev/null | wc -l)
 KEEPER_SERVICES=$(docker ps 2>/dev/null | grep -i keeper | wc -l)
 
+# LDAP & Authentication
+if systemctl is-active --quiet sssd 2>/dev/null; then
+    SSSD_STATUS="${BGREEN}✓ ACTIVE${RESET}"
+    SSSD_DOMAINS=$(sssctl domain-list 2>/dev/null | wc -l || echo "0")
+else
+    SSSD_STATUS="${DIM}INACTIVE${RESET}"
+    SSSD_DOMAINS="0"
+fi
+
+PASSWD_BACKENDS=$(grep "^passwd:" /etc/nsswitch.conf 2>/dev/null | sed 's/passwd://' | xargs)
+if echo "$PASSWD_BACKENDS" | grep -q "sss"; then
+    AUTH_METHOD="${KEEPER_GOLD}SSSD${RESET} ${DIM}(configured)${RESET}"
+elif echo "$PASSWD_BACKENDS" | grep -q "ldap"; then
+    AUTH_METHOD="${KEEPER_GOLD}LDAP${RESET} ${DIM}(configured)${RESET}"
+else
+    AUTH_METHOD="${DIM}Local${RESET}"
+fi
+
+TOTAL_USERS=$(getent passwd | wc -l)
+LOCAL_USERS=$(getent passwd | awk -F: '$3 >= 1000 && $3 != 65534 {print $1}' | wc -l)
+
 # Get random security tip
-TIPS_FILE="/root/.keeper_security_tips.txt"
+TIPS_FILE="$HOME/.keeper_security_tips.txt"
 if [ -f "$TIPS_FILE" ]; then
     SECURITY_TIP=$(shuf -n 1 "$TIPS_FILE")
 else
@@ -306,16 +327,23 @@ for i in {1..3}; do echo -n "."; sleep 0.05; done
 echo -e " ${BGREEN}✓${RESET}"
 sleep 0.1
 
-# SSH & Connection Security with Keeper branding
+# Unified Security Command Center with Keeper branding
 echo -e "${KEEPER_BLACK}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}🔌 CONNECTION & SECURITY STATUS${RESET}                                           ${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}🔐 SECURITY COMMAND CENTER${RESET}                                                ${KEEPER_BLACK}║${RESET}"
 echo -e "${KEEPER_BLACK}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+
+# Authentication & Access Control
+echo -e "${KEEPER_BLACK}║${RESET}  ${BWHITE}Authentication & Access${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Auth Method:${RESET}     ${AUTH_METHOD} ${DIM}│${RESET} ${CYAN}SSSD:${RESET} ${SSSD_STATUS}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Users:${RESET}           ${KEEPER_GOLD}${LOCAL_USERS}${RESET} local ${DIM}│${RESET} ${KEEPER_GOLD}${TOTAL_USERS}${RESET} total users"
 
 # SSH connections
 SSH_CONNECTIONS=$(who | wc -l)
 TMUX_SESSIONS=$(tmux list-sessions 2>/dev/null | wc -l)
 
-echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Active SSH:${RESET}      ${KEEPER_GOLD}${SSH_CONNECTIONS}${RESET} connection(s) ${DIM}│${RESET} ${CYAN}Tmux:${RESET} ${KEEPER_GOLD}${TMUX_SESSIONS}${RESET} session(s)"
+echo -e "${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${BWHITE}Active Connections${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}SSH Sessions:${RESET}    ${KEEPER_GOLD}${SSH_CONNECTIONS}${RESET} active ${DIM}│${RESET} ${CYAN}Tmux:${RESET} ${KEEPER_GOLD}${TMUX_SESSIONS}${RESET} session(s)"
 
 # Last login info
 LAST_LOGIN=$(last -1 -w 2>/dev/null | head -n 1 | awk '{print $1, $3, $4, $5, $6, $7}')
@@ -325,7 +353,9 @@ fi
 
 # Network interfaces
 ACTIVE_IPS=$(ip -4 addr show 2>/dev/null | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '127.0.0.1' | wc -l)
-echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Network IPs:${RESET}     ${KEEPER_GOLD}${ACTIVE_IPS}${RESET} active interface(s)"
+echo -e "${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${BWHITE}Network Security${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Active IPs:${RESET}      ${KEEPER_GOLD}${ACTIVE_IPS}${RESET} network interface(s) configured"
 
 echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
@@ -395,32 +425,12 @@ echo -e "${KEEPER_BLACK}💡 ${BWHITE}${RANDOM_QUOTE}${RESET}"
 echo -e "${KEEPER_GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 echo ""
 
-# Security Tip of the Day at the bottom with dynamic box sizing
-# Calculate the width needed for the security tip
-TIP_LENGTH=${#SECURITY_TIP}
-# Minimum width of 50, add padding of 6 (4 for borders and spaces, 2 for padding)
-BOX_WIDTH=$((TIP_LENGTH + 6))
-# Ensure minimum width of 56 for the header
-[ $BOX_WIDTH -lt 56 ] && BOX_WIDTH=56
-
-# Generate dynamic borders
-BORDER_LINE=$(printf '═%.0s' $(seq 1 $((BOX_WIDTH - 2))))
-
-# Header width calculation
-HEADER_TEXT="  🛡️  SECURITY TIP OF THE DAY"
-HEADER_LENGTH=$((${#HEADER_TEXT} + 2))  # +2 for color codes padding
-HEADER_PADDING=$((BOX_WIDTH - HEADER_LENGTH - 2))
-HEADER_SPACES=$(printf ' %.0s' $(seq 1 $HEADER_PADDING))
-
-# Tip content padding
-TIP_PADDING=$((BOX_WIDTH - TIP_LENGTH - 4))
-TIP_SPACES=$(printf ' %.0s' $(seq 1 $TIP_PADDING))
-
-echo -e "${KEEPER_GOLD}╔${BORDER_LINE}╗${RESET}"
-echo -e "${KEEPER_GOLD}║${RESET}${BWHITE}${HEADER_TEXT}${RESET}${HEADER_SPACES}${KEEPER_GOLD}║${RESET}"
-echo -e "${KEEPER_GOLD}╠${BORDER_LINE}╣${RESET}"
+# Security Tip of the Day at the bottom
+echo -e "${KEEPER_GOLD}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${BWHITE}🛡️  SECURITY TIP OF THE DAY${RESET}                                                ${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
 echo -e "${KEEPER_GOLD}║${RESET}"
-echo -e "${KEEPER_GOLD}║${RESET}  ${BCYAN}${SECURITY_TIP}${RESET}${TIP_SPACES}${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}${SECURITY_TIP}${RESET}"
 echo -e "${KEEPER_GOLD}║${RESET}"
-echo -e "${KEEPER_GOLD}╚${BORDER_LINE}╝${RESET}"
+echo -e "${KEEPER_GOLD}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
