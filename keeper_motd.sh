@@ -430,7 +430,7 @@ echo -e "${KEEPER_GOLD}╔══════════════════
 echo -e "${KEEPER_GOLD}║${RESET}  ${BWHITE}🛡️  SECURITY TIP OF THE DAY${RESET}                                                ${KEEPER_GOLD}║${RESET}"
 echo -e "${KEEPER_GOLD}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
 echo -e "${KEEPER_GOLD}║${RESET}"
-echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}${SECURITY_TIP}${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${BCYAN}${SECURITY_TIP}${RESET}"
 echo -e "${KEEPER_GOLD}║${RESET}"
 echo -e "${KEEPER_GOLD}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
