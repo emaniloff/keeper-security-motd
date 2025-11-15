@@ -55,7 +55,7 @@ DOCKER_RUNNING=$(docker ps -q 2>/dev/null | wc -l)
 KEEPER_SERVICES=$(docker ps 2>/dev/null | grep -i keeper | wc -l)
 
 # Get random security tip
-TIPS_FILE="/root/.keeper_security_tips.txt"
+TIPS_FILE="$HOME/.keeper_security_tips.txt"
 if [ -f "$TIPS_FILE" ]; then
     SECURITY_TIP=$(shuf -n 1 "$TIPS_FILE")
 else
