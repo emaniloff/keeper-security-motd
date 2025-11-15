@@ -32,10 +32,10 @@ PURPLE='\033[38;5;141m'
 LIME='\033[38;5;118m'
 PINK='\033[38;5;213m'
 
-# Keeper Brand Colors
-KEEPER_ORANGE='\033[38;5;208m'
-KEEPER_BLUE='\033[38;5;33m'
-KEEPER_DARK='\033[38;5;240m'
+# Keeper Brand Colors - Golden Yellow and Black
+KEEPER_GOLD='\033[38;5;220m'      # Golden yellow primary
+KEEPER_BLACK='\033[38;5;232m'     # Black secondary
+KEEPER_DARK='\033[38;5;240m'      # Dark gray for subtle elements
 
 # Get system info (with caching to speed up login)
 HOSTNAME=$(hostname)
@@ -113,11 +113,11 @@ spinner() {
 # Animated Keeper logo with gradient effect
 show_keeper_logo() {
     # Keeper signature orange to blue gradient
-    local line1="${KEEPER_ORANGE}"
-    local line2="${KEEPER_ORANGE}"
+    local line1="${KEEPER_GOLD}"
+    local line2="${KEEPER_GOLD}"
     local line3="\033[38;5;214m"  # Orange-yellow transition
-    local line4="${KEEPER_BLUE}"
-    local line5="${KEEPER_BLUE}"
+    local line4="${KEEPER_BLACK}"
+    local line5="${KEEPER_BLACK}"
     local line6="${BBLUE}"
 
     echo -e "${line1}    ██╗  ██╗███████╗███████╗██████╗ ███████╗██████╗${RESET}"
@@ -138,7 +138,7 @@ show_keeper_logo() {
     for i in {1..2}; do
         echo -ne "\r         ${BWHITE}${BLINK}🔐 SECURITY COMMAND CENTER 🔐${RESET}"
         sleep 0.3
-        echo -ne "\r         ${KEEPER_ORANGE}🔐 SECURITY COMMAND CENTER 🔐${RESET}"
+        echo -ne "\r         ${KEEPER_GOLD}🔐 SECURITY COMMAND CENTER 🔐${RESET}"
         sleep 0.3
     done
     echo -e "\r         ${BWHITE}🔐 SECURITY COMMAND CENTER 🔐${RESET}"
@@ -161,7 +161,7 @@ show_vault() {
 
     # Unlocking animation
     for i in {1..3}; do
-        echo -ne "\r              ${KEEPER_ORANGE}>>> ${BYELLOW}Verifying credentials${RESET}"
+        echo -ne "\r              ${KEEPER_GOLD}>>> ${BYELLOW}Verifying credentials${RESET}"
         for dot in {1..3}; do
             echo -n "."
             sleep 0.1
@@ -171,12 +171,12 @@ show_vault() {
 
     # Clear and show unlocked vault
     tput cuu 7  # Move cursor up 7 lines
-    echo -e "${KEEPER_ORANGE}"
+    echo -e "${KEEPER_GOLD}"
     echo "              ╔═══════════════════════════╗"
-    echo -e "              ║   ${BGREEN}🔓 VAULT: UNLOCKED 🔓${KEEPER_ORANGE}  ║"
+    echo -e "              ║   ${BGREEN}🔓 VAULT: UNLOCKED 🔓${KEEPER_GOLD}  ║"
     echo "              ║         [SECURED]         ║"
     echo "              ║    ═══════════════════    ║"
-    echo -e "              ║   ${BGREEN}◉  ACCESS GRANTED  ◉${KEEPER_ORANGE}   ║"
+    echo -e "              ║   ${BGREEN}◉  ACCESS GRANTED  ◉${KEEPER_GOLD}   ║"
     echo "              ╚═══════════════════════════╝"
     echo -e "${RESET}"
 }
@@ -193,52 +193,52 @@ show_vault
 echo ""
 
 # Animated loading effect
-echo -ne "${KEEPER_ORANGE}>>> ${RESET}Loading system information"
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Loading system information"
 for i in {1..3}; do echo -n "."; sleep 0.05; done
 echo -e " ${BGREEN}✓${RESET}"
 sleep 0.1
 
 # System Info Box with Keeper colors
-echo -e "${KEEPER_BLUE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_BLUE}║${RESET}  ${KEEPER_ORANGE}⚡ SYSTEM STATUS${RESET}                                                           ${KEEPER_BLUE}║${RESET}"
-echo -e "${KEEPER_BLUE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}System:${RESET} ${BWHITE}${HOSTNAME}${RESET} ${DIM}│${RESET} ${CYAN}Uptime:${RESET} ${KEEPER_ORANGE}${UPTIME}${RESET} ${DIM}│${RESET} ${CYAN}Load:${RESET} ${BYELLOW}${LOAD}${RESET} ${DIM}│${RESET} ${CYAN}Users:${RESET} ${BWHITE}${USERS}${RESET}"
-echo -e "${KEEPER_BLUE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_BLACK}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}⚡ SYSTEM STATUS${RESET}                                                           ${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}System:${RESET} ${BWHITE}${HOSTNAME}${RESET} ${DIM}│${RESET} ${CYAN}Uptime:${RESET} ${KEEPER_GOLD}${UPTIME}${RESET} ${DIM}│${RESET} ${CYAN}Load:${RESET} ${BYELLOW}${LOAD}${RESET} ${DIM}│${RESET} ${CYAN}Users:${RESET} ${BWHITE}${USERS}${RESET}"
+echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
 # Loading animation for resources
-echo -ne "${KEEPER_ORANGE}>>> ${RESET}Analyzing resources"
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Analyzing resources"
 for i in {1..3}; do echo -n "."; sleep 0.05; done
 echo -e " ${BGREEN}✓${RESET}"
 sleep 0.1
 
 # Resource Vault Status with Keeper branding
-echo -e "${KEEPER_ORANGE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${BWHITE}💾 RESOURCE VAULT STATUS${RESET}                                                  ${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}RAM:${RESET}     $(progress_bar $RAM_PCT) ${DIM}(${USED_RAM} / ${TOTAL_RAM})${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Disk:${RESET}    $(progress_bar $DISK_PCT) ${DIM}(/ filesystem)${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}CPU:${RESET}     ${KEEPER_ORANGE}${CPU_CORES}${RESET} cores ${DIM}│${RESET} Load: ${BYELLOW}${LOAD}${RESET}"
-echo -e "${KEEPER_ORANGE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_GOLD}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${BWHITE}💾 RESOURCE VAULT STATUS${RESET}                                                  ${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}RAM:${RESET}     $(progress_bar $RAM_PCT) ${DIM}(${USED_RAM} / ${TOTAL_RAM})${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Disk:${RESET}    $(progress_bar $DISK_PCT) ${DIM}(/ filesystem)${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}CPU:${RESET}     ${KEEPER_GOLD}${CPU_CORES}${RESET} cores ${DIM}│${RESET} Load: ${BYELLOW}${LOAD}${RESET}"
+echo -e "${KEEPER_GOLD}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
 # Loading animation for containers
-echo -ne "${KEEPER_ORANGE}>>> ${RESET}Checking containers"
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Checking containers"
 for i in {1..3}; do echo -n "."; sleep 0.05; done
 echo -e " ${BGREEN}✓${RESET}"
 sleep 0.1
 
 # Container Status with Keeper branding
-echo -e "${KEEPER_BLUE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_BLUE}║${RESET}  ${KEEPER_ORANGE}🐳 ACTIVE CONTAINERS${RESET}                                                       ${KEEPER_BLUE}║${RESET}"
-echo -e "${KEEPER_BLUE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}Docker:${RESET}         ${KEEPER_ORANGE}${DOCKER_RUNNING}${RESET} containers running"
+echo -e "${KEEPER_BLACK}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}🐳 ACTIVE CONTAINERS${RESET}                                                       ${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Docker:${RESET}         ${KEEPER_GOLD}${DOCKER_RUNNING}${RESET} containers running"
 if [ "$KEEPER_SERVICES" -gt 0 ]; then
-    echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}Keeper Services:${RESET} ${BGREEN}✓${RESET} ${KEEPER_ORANGE}${KEEPER_SERVICES}${RESET} service(s) ${BGREEN}ACTIVE${RESET}"
+    echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Keeper Services:${RESET} ${BGREEN}✓${RESET} ${KEEPER_GOLD}${KEEPER_SERVICES}${RESET} service(s) ${BGREEN}ACTIVE${RESET}"
 else
-    echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}Keeper Services:${RESET} ${DIM}No Keeper containers detected${RESET}"
+    echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Keeper Services:${RESET} ${DIM}No Keeper containers detected${RESET}"
 fi
-echo -e "${KEEPER_BLUE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
 # Warnings if resources are critical
@@ -248,21 +248,21 @@ if [ "$RAM_PCT" -ge 85 ] || [ "$DISK_PCT" -ge 85 ]; then
 fi
 
 # Keeper-branded footer with timestamp
-echo -e "${KEEPER_ORANGE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
-echo -e "${KEEPER_BLUE}⚡ Access granted: ${BWHITE}$(date '+%Y-%m-%d %H:%M:%S %Z')${RESET} ${KEEPER_BLUE}│ ${KEEPER_ORANGE}Stay secure! 🔐${RESET}"
-echo -e "${KEEPER_ORANGE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+echo -e "${KEEPER_GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+echo -e "${KEEPER_BLACK}⚡ Access granted: ${BWHITE}$(date '+%Y-%m-%d %H:%M:%S %Z')${RESET} ${KEEPER_BLACK}│ ${KEEPER_GOLD}Stay secure! 🔐${RESET}"
+echo -e "${KEEPER_GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 echo ""
 
 # Loading animation for projects
-echo -ne "${KEEPER_ORANGE}>>> ${RESET}Scanning projects"
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Scanning projects"
 for i in {1..3}; do echo -n "."; sleep 0.05; done
 echo -e " ${BGREEN}✓${RESET}"
 sleep 0.1
 
 # Project & Automation Status with Keeper colors
-echo -e "${KEEPER_ORANGE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${BWHITE}🚀 ACTIVE PROJECTS & AUTOMATION${RESET}                                           ${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_GOLD}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${BWHITE}🚀 ACTIVE PROJECTS & AUTOMATION${RESET}                                           ${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
 
 # Check for active projects
 CURRENT_PROJECT=""
@@ -271,9 +271,9 @@ if [ -f "$HOME/.current_automation_project" ]; then
 fi
 
 if [ -n "$CURRENT_PROJECT" ]; then
-    echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Current Project:${RESET} ${BGREEN}✓${RESET} ${BWHITE}${CURRENT_PROJECT}${RESET}"
+    echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Current Project:${RESET} ${BGREEN}✓${RESET} ${BWHITE}${CURRENT_PROJECT}${RESET}"
 else
-    echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Current Project:${RESET} ${DIM}No active project${RESET}"
+    echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Current Project:${RESET} ${DIM}No active project${RESET}"
 fi
 
 # Git status for current directory
@@ -281,9 +281,9 @@ if [ -d ".git" ]; then
     GIT_BRANCH=$(git branch --show-current 2>/dev/null)
     GIT_STATUS=$(git status --porcelain 2>/dev/null | wc -l)
     if [ "$GIT_STATUS" -gt 0 ]; then
-        echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Git Branch:${RESET}      ${BYELLOW}${GIT_BRANCH}${RESET} ${DIM}│${RESET} ${YELLOW}${GIT_STATUS} uncommitted changes${RESET}"
+        echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Git Branch:${RESET}      ${BYELLOW}${GIT_BRANCH}${RESET} ${DIM}│${RESET} ${YELLOW}${GIT_STATUS} uncommitted changes${RESET}"
     else
-        echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Git Branch:${RESET}      ${BGREEN}${GIT_BRANCH}${RESET} ${DIM}│${RESET} ${BGREEN}✓ Clean${RESET}"
+        echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Git Branch:${RESET}      ${BGREEN}${GIT_BRANCH}${RESET} ${DIM}│${RESET} ${BGREEN}✓ Clean${RESET}"
     fi
 fi
 
@@ -291,91 +291,91 @@ fi
 if [ -f "$HOME/.automation_context.db" ]; then
     WORKFLOW_COUNT=$(sqlite3 "$HOME/.automation_context.db" "SELECT COUNT(*) FROM workflows WHERE status='running'" 2>/dev/null || echo "0")
     if [ "$WORKFLOW_COUNT" -gt 0 ]; then
-        echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Workflows:${RESET}       ${BGREEN}✓${RESET} ${KEEPER_ORANGE}${WORKFLOW_COUNT}${RESET} workflow(s) ${BGREEN}RUNNING${RESET}"
+        echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Workflows:${RESET}       ${BGREEN}✓${RESET} ${KEEPER_GOLD}${WORKFLOW_COUNT}${RESET} workflow(s) ${BGREEN}RUNNING${RESET}"
     else
-        echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Workflows:${RESET}       ${DIM}No active workflows${RESET}"
+        echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Workflows:${RESET}       ${DIM}No active workflows${RESET}"
     fi
 fi
 
-echo -e "${KEEPER_ORANGE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_GOLD}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
 # Loading animation for security check
-echo -ne "${KEEPER_ORANGE}>>> ${RESET}Security scan"
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Security scan"
 for i in {1..3}; do echo -n "."; sleep 0.05; done
 echo -e " ${BGREEN}✓${RESET}"
 sleep 0.1
 
 # SSH & Connection Security with Keeper branding
-echo -e "${KEEPER_BLUE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_BLUE}║${RESET}  ${KEEPER_ORANGE}🔌 CONNECTION & SECURITY STATUS${RESET}                                           ${KEEPER_BLUE}║${RESET}"
-echo -e "${KEEPER_BLUE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_BLACK}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}🔌 CONNECTION & SECURITY STATUS${RESET}                                           ${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
 
 # SSH connections
 SSH_CONNECTIONS=$(who | wc -l)
 TMUX_SESSIONS=$(tmux list-sessions 2>/dev/null | wc -l)
 
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}Active SSH:${RESET}      ${KEEPER_ORANGE}${SSH_CONNECTIONS}${RESET} connection(s) ${DIM}│${RESET} ${CYAN}Tmux:${RESET} ${KEEPER_ORANGE}${TMUX_SESSIONS}${RESET} session(s)"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Active SSH:${RESET}      ${KEEPER_GOLD}${SSH_CONNECTIONS}${RESET} connection(s) ${DIM}│${RESET} ${CYAN}Tmux:${RESET} ${KEEPER_GOLD}${TMUX_SESSIONS}${RESET} session(s)"
 
 # Last login info
 LAST_LOGIN=$(last -1 -w 2>/dev/null | head -n 1 | awk '{print $1, $3, $4, $5, $6, $7}')
 if [ -n "$LAST_LOGIN" ]; then
-    echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}Last Login:${RESET}      ${DIM}${LAST_LOGIN}${RESET}"
+    echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Last Login:${RESET}      ${DIM}${LAST_LOGIN}${RESET}"
 fi
 
 # Network interfaces
 ACTIVE_IPS=$(ip -4 addr show 2>/dev/null | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '127.0.0.1' | wc -l)
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}Network IPs:${RESET}     ${KEEPER_ORANGE}${ACTIVE_IPS}${RESET} active interface(s)"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Network IPs:${RESET}     ${KEEPER_GOLD}${ACTIVE_IPS}${RESET} active interface(s)"
 
-echo -e "${KEEPER_BLUE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
 # Loading animation for activity
-echo -ne "${KEEPER_ORANGE}>>> ${RESET}Analyzing activity"
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Analyzing activity"
 for i in {1..3}; do echo -n "."; sleep 0.05; done
 echo -e " ${BGREEN}✓${RESET}"
 sleep 0.1
 
 # Recent Activity with Keeper branding
-echo -e "${KEEPER_ORANGE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${BWHITE}📊 RECENT ACTIVITY${RESET}                                                        ${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_GOLD}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${BWHITE}📊 RECENT ACTIVITY${RESET}                                                        ${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
 
 # Recent commands (from history)
 RECENT_CMD_COUNT=$(history 2>/dev/null | wc -l || echo "0")
-echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Shell History:${RESET}   ${KEEPER_ORANGE}${RECENT_CMD_COUNT}${RESET} commands recorded"
+echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Shell History:${RESET}   ${KEEPER_GOLD}${RECENT_CMD_COUNT}${RESET} commands recorded"
 
 # Git commits today
 if [ -d ".git" ]; then
     TODAY=$(date +%Y-%m-%d)
     COMMITS_TODAY=$(git log --since="$TODAY 00:00:00" --oneline 2>/dev/null | wc -l)
     if [ "$COMMITS_TODAY" -gt 0 ]; then
-        echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Commits Today:${RESET}   ${BGREEN}✓${RESET} ${KEEPER_ORANGE}${COMMITS_TODAY}${RESET} commit(s)"
+        echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Commits Today:${RESET}   ${BGREEN}✓${RESET} ${KEEPER_GOLD}${COMMITS_TODAY}${RESET} commit(s)"
     else
-        echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Commits Today:${RESET}   ${DIM}No commits yet${RESET}"
+        echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Commits Today:${RESET}   ${DIM}No commits yet${RESET}"
     fi
 fi
 
 # Docker events
 DOCKER_EVENTS=$(docker events --since 1h --until 0s 2>/dev/null | wc -l)
 if [ "$DOCKER_EVENTS" -gt 0 ]; then
-    echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}Docker Events:${RESET}   ${KEEPER_ORANGE}${DOCKER_EVENTS}${RESET} events in last hour"
+    echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}Docker Events:${RESET}   ${KEEPER_GOLD}${DOCKER_EVENTS}${RESET} events in last hour"
 fi
 
-echo -e "${KEEPER_ORANGE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_GOLD}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
 # Quick Commands with Keeper branding
-echo -e "${KEEPER_BLUE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_BLUE}║${RESET}  ${KEEPER_ORANGE}⚡ QUICK COMMANDS${RESET}                                                             ${KEEPER_BLUE}║${RESET}"
-echo -e "${KEEPER_BLUE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}keeper-status${RESET}  ${DIM}│${RESET} Check Keeper services"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}docker ps${RESET}      ${DIM}│${RESET} List containers"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}htop${RESET}           ${DIM}│${RESET} System monitor"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}tmux attach${RESET}    ${DIM}│${RESET} Attach to session"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}git status${RESET}     ${DIM}│${RESET} Check repository status"
-echo -e "${KEEPER_BLUE}║${RESET}  ${CYAN}claude${RESET}         ${DIM}│${RESET} Launch Claude Code"
-echo -e "${KEEPER_BLUE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_BLACK}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}⚡ QUICK COMMANDS${RESET}                                                             ${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}keeper-status${RESET}  ${DIM}│${RESET} Check Keeper services"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}docker ps${RESET}      ${DIM}│${RESET} List containers"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}htop${RESET}           ${DIM}│${RESET} System monitor"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}tmux attach${RESET}    ${DIM}│${RESET} Attach to session"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}git status${RESET}     ${DIM}│${RESET} Check repository status"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}claude${RESET}         ${DIM}│${RESET} Launch Claude Code"
+echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
 # Easter egg - random motivational quote with animation
@@ -390,17 +390,17 @@ QUOTES=(
     "\"Encrypted today, secure tomorrow.\""
 )
 RANDOM_QUOTE=${QUOTES[$RANDOM % ${#QUOTES[@]}]}
-echo -e "${KEEPER_ORANGE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
-echo -e "${KEEPER_BLUE}💡 ${BWHITE}${RANDOM_QUOTE}${RESET}"
-echo -e "${KEEPER_ORANGE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+echo -e "${KEEPER_GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+echo -e "${KEEPER_BLACK}💡 ${BWHITE}${RANDOM_QUOTE}${RESET}"
+echo -e "${KEEPER_GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 echo ""
 
 # Security Tip of the Day at the bottom
-echo -e "${KEEPER_ORANGE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${BWHITE}🛡️  SECURITY TIP OF THE DAY${RESET}                                                ${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}${SECURITY_TIP}${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo -e "${KEEPER_GOLD}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${BWHITE}🛡️  SECURITY TIP OF THE DAY${RESET}                                                ${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${KEEPER_BLACK}${SECURITY_TIP}${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""

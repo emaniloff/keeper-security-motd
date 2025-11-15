@@ -9,7 +9,7 @@ An animated, colorful Message of the Day (MOTD) system themed around Keeper Secu
 
 ## ✨ Features
 
-- **🎨 Animated ASCII Logo** - Gradient color animation from Keeper orange to blue
+- **🎨 Animated ASCII Logo** - Gradient color animation with Keeper golden yellow and black
 - **🔓 Vault Unlocking Animation** - Dynamic credential verification sequence
 - **💡 251 Security Tips** - Keeper-themed dad jokes and security awareness
 - **📊 Real-Time System Metrics** - RAM, Disk, CPU, and Uptime monitoring
@@ -17,14 +17,14 @@ An animated, colorful Message of the Day (MOTD) system themed around Keeper Secu
 - **🔌 Connection Status** - SSH sessions, tmux, network interfaces
 - **📈 Activity Dashboard** - Git commits, shell history, docker events
 - **🎯 Quick Commands** - Helpful shortcuts displayed on every login
-- **🎨 Keeper Brand Colors** - Orange (#208) and Blue (#33) throughout
+- **🎨 Keeper Brand Colors** - Golden yellow (#220) and black (#232) throughout
 - **⚡ Loading Animations** - Smooth transitions between sections
 
 ## 🎬 What It Looks Like
 
 When you SSH into your server, you'll see:
 
-1. **Animated Keeper Logo** with gradient color transition (orange → blue)
+1. **Animated Keeper Logo** with gradient color transition (golden yellow → black)
 2. **Vault Unlocking Sequence** with credential verification animation
 3. **System Status** - Hostname, uptime, load average, active users
 4. **Resource Vault Status** - RAM/Disk/CPU with visual progress bars
@@ -109,8 +109,8 @@ Keeper's vault is like Fort Knox, but with better UI and zero-knowledge encrypti
 Edit `~/.keeper_motd.sh` and adjust these color codes:
 
 ```bash
-KEEPER_ORANGE="\033[38;5;208m"  # Keeper primary orange
-KEEPER_BLUE="\033[38;5;33m"     # Keeper secondary blue
+KEEPER_GOLD="\033[38;5;220m"    # Keeper primary golden yellow
+KEEPER_BLACK="\033[38;5;232m"   # Keeper secondary black
 BGREEN="\033[1;32m"             # Bright green for success
 BYELLOW="\033[1;33m"            # Bright yellow for warnings
 ```
@@ -265,7 +265,7 @@ MIT License - Feel free to use and modify for your own systems!
 - **~400 lines** of bash animation code
 - **10+ sections** of system information
 - **3 animations**: logo gradient, vault unlock, loading sequences
-- **2 brand colors**: Keeper orange (#208) and blue (#33)
+- **2 brand colors**: Keeper golden yellow (#220) and black (#232)
 
 ---
 
