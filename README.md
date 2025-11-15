@@ -1,290 +1,274 @@
 # 🔐 Keeper Security MOTD
 
-A colorful, animated login banner (Message of the Day) themed around Keeper Security with daily rotating security tips!
-
-**Cross-platform support:** Linux • macOS • Windows
+An animated, colorful Message of the Day (MOTD) system themed around Keeper Security with daily rotating security tips featuring dad-joke style humor!
 
 ![Keeper MOTD](https://img.shields.io/badge/security-keeper-orange)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-green)
+![Platform](https://img.shields.io/badge/platform-Linux-green)
+![Tips](https://img.shields.io/badge/security_tips-251-blue)
+![Shell](https://img.shields.io/badge/shell-bash-brightgreen)
 
-## Features
+## ✨ Features
 
-- **🎨 Colorful ASCII Art** - Beautiful Keeper-branded vault animation
-- **💡 Daily Security Tips** - Rotating security advice with humor and education
-- **📊 System Metrics** - Real-time resource monitoring (RAM, Disk, CPU)
-- **🐳 Container Tracking** - Shows Docker and Keeper service status
-- **⚠️ Smart Alerts** - Warnings when system resources run high
-- **🖥️ Cross-Platform** - Works on Linux, macOS, and Windows
-- **🎯 Quick Commands** - Helpful command suggestions on login
+- **🎨 Animated ASCII Logo** - Gradient color animation from Keeper orange to blue
+- **🔓 Vault Unlocking Animation** - Dynamic credential verification sequence
+- **💡 251 Security Tips** - Keeper-themed dad jokes and security awareness
+- **📊 Real-Time System Metrics** - RAM, Disk, CPU, and Uptime monitoring
+- **🐳 Docker Container Tracking** - Live container and Keeper service status
+- **🔌 Connection Status** - SSH sessions, tmux, network interfaces
+- **📈 Activity Dashboard** - Git commits, shell history, docker events
+- **🎯 Quick Commands** - Helpful shortcuts displayed on every login
+- **🎨 Keeper Brand Colors** - Orange (#208) and Blue (#33) throughout
+- **⚡ Loading Animations** - Smooth transitions between sections
 
-## Preview
+## 🎬 What It Looks Like
 
-```
-    ██╗  ██╗███████╗███████╗██████╗ ███████╗██████╗
-    ██║ ██╔╝██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗
-    █████╔╝ █████╗  █████╗  ██████╔╝█████╗  ██████╔╝
-    ██╔═██╗ ██╔══╝  ██╔══╝  ██╔═══╝ ██╔══╝  ██╔══██╗
-    ██║  ██╗███████╗███████╗██║     ███████╗██║  ██║
-    ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝
-              🔐 SECURITY COMMAND CENTER 🔐
+When you SSH into your server, you'll see:
 
-              ╔═══════════════════════════╗
-              ║    🔒 VAULT: SECURED 🔒   ║
-              ║         [LOCKED]          ║
-              ║    ═══════════════════    ║
-              ║    ◉  ACCESS GRANTED  ◉   ║
-              ╚═══════════════════════════╝
+1. **Animated Keeper Logo** with gradient color transition (orange → blue)
+2. **Vault Unlocking Sequence** with credential verification animation
+3. **System Status** - Hostname, uptime, load average, active users
+4. **Resource Vault Status** - RAM/Disk/CPU with visual progress bars
+5. **Active Containers** - Docker and Keeper service counts
+6. **Projects & Automation** - Current git project, branch status
+7. **Connection & Security Status** - SSH sessions, last login, network info
+8. **Recent Activity** - Shell commands, git commits, docker events
+9. **Quick Commands** - Handy shortcuts for keeper-status, docker, git, etc.
+10. **Motivational Quote** - Security-focused inspiration
+11. **Security Tip of the Day** - One of 251 Keeper-themed dad jokes!
 
-╔════════════════════════════════════════════════════════════════════════════╗
-║  🛡️  SECURITY TIP OF THE DAY                                                ║
-╠════════════════════════════════════════════════════════════════════════════╣
-║
-║  Your password is not a vintage wine - it doesn't get better with age!
-║
-╚════════════════════════════════════════════════════════════════════════════╝
-```
+## 📦 Installation
 
-## Installation
+### Linux (Bash/Zsh)
 
-### 🐧 Linux
-
-#### Quick Install
-```bash
-curl -fsSL https://raw.githubusercontent.com/jlima8900/keeper-security-motd/main/install.sh | bash
-```
-
-#### Manual Installation
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/jlima8900/keeper-security-motd.git
 cd keeper-security-motd
-chmod +x install.sh
-./install.sh
 ```
 
-### 🍎 macOS
-
-#### Quick Install
+2. **Copy files to home directory:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/jlima8900/keeper-security-motd/main/install_macos.sh | bash
+cp keeper_motd_enhanced.sh ~/.keeper_motd.sh
+cp security_tips.txt ~/.keeper_security_tips.txt
+chmod +x ~/.keeper_motd.sh
 ```
 
-#### Manual Installation
+3. **Add to your shell login:**
+
+For **Bash** users (add to `~/.bashrc` or `~/.bash_profile`):
 ```bash
-git clone https://github.com/jlima8900/keeper-security-motd.git
-cd keeper-security-motd
-chmod +x install_macos.sh
-./install_macos.sh
+if [ -f "$HOME/.keeper_motd.sh" ]; then
+    bash "$HOME/.keeper_motd.sh"
+fi
 ```
 
-**Note:** macOS users should install GNU coreutils for best experience:
+For **Zsh** users (add to `~/.zshrc` or `~/.zlogin`):
 ```bash
-brew install coreutils
+if [ -f "$HOME/.keeper_motd.sh" ]; then
+    bash "$HOME/.keeper_motd.sh"
+fi
 ```
 
-### 🪟 Windows
-
-#### PowerShell Installation
-
-1. Download the repository:
-```powershell
-git clone https://github.com/jlima8900/keeper-security-motd.git
-cd keeper-security-motd
+For **Zsh with custom ZDOTDIR** (add to `~/.config/zsh/.zlogin`):
+```bash
+if [ -f "$HOME/.keeper_motd.sh" ]; then
+    bash "$HOME/.keeper_motd.sh"
+fi
 ```
 
-2. Run the installer (may require execution policy change):
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-.\install_windows.ps1
+4. **(Optional) Disable system MOTD:**
+```bash
+sudo cp /etc/motd /etc/motd.backup
+sudo truncate -s 0 /etc/motd
 ```
 
-**Requirements:**
-- PowerShell 5.0 or higher
-- Windows 10+ (for best ANSI color support)
-- Windows Terminal recommended for optimal colors
+5. **Test it:**
+```bash
+bash ~/.keeper_motd.sh
+```
 
-## Platform-Specific Details
+## 🎨 Customization
 
-### Linux
-- Uses bash/zsh for shell integration
-- Supports all major distributions (Ubuntu, Debian, RHEL, Arch, etc.)
-- System metrics via standard Linux utilities
+### Add Your Own Security Tips
 
-### macOS
-- Compatible with both bash and zsh (default on macOS Catalina+)
-- Uses native macOS system calls for metrics
-- Optimized for Terminal.app and iTerm2
-
-### Windows
-- PowerShell 5.0+ required
-- ANSI color support (Windows 10+)
-- Best with Windows Terminal
-- SSH login support via PowerShell profile
-
-## Configuration
-
-### Custom Security Tips
-
-Edit the tips file to add your own security advice:
-
-**Linux/macOS:**
+Edit the tips file:
 ```bash
 nano ~/.keeper_security_tips.txt
 ```
 
-**Windows:**
-```powershell
-notepad $env:USERPROFILE\.keeper_security_tips.txt
+Each tip should be on a new line. Keep them Keeper-themed and family-friendly!
+
+Example:
+```
+Why did the password manager go to therapy? It had too many secrets to keep!
+Keeper's vault is like Fort Knox, but with better UI and zero-knowledge encryption!
 ```
 
-Each tip should be on a new line. Example:
+### Modify Colors
+
+Edit `~/.keeper_motd.sh` and adjust these color codes:
+
+```bash
+KEEPER_ORANGE="\033[38;5;208m"  # Keeper primary orange
+KEEPER_BLUE="\033[38;5;33m"     # Keeper secondary blue
+BGREEN="\033[1;32m"             # Bright green for success
+BYELLOW="\033[1;33m"            # Bright yellow for warnings
 ```
-Your custom security tip here!
-Another funny security reminder
-Pro tip: Keep your secrets in Keeper, not on sticky notes!
-```
 
-### Customize Colors
+### Customize Sections
 
-Edit the MOTD script to customize colors:
-
-**Linux/macOS:** `~/.keeper_motd.sh`
-**Windows:** `$env:USERPROFILE\.keeper_motd.ps1`
-
-Customize these variables:
-- `KEEPER_ORANGE` - Primary brand color
-- `KEEPER_BLUE` - Secondary brand color
-- Progress bar thresholds
-
-### Disable Specific Sections
-
-Comment out sections you don't need in the script:
+Comment out sections you don't need in `~/.keeper_motd.sh`:
+- System status
 - Resource monitoring
-- Docker statistics
-- System information
+- Container tracking
+- Projects & automation
+- Activity dashboard
+- Quick commands
 - Security tips
 
-## Requirements
+## 📁 File Structure
 
-### Linux/macOS
-- Bash 4.0 or higher / Zsh 5.0+
-- Standard Unix utilities (free, df, uptime)
-- Docker (optional, for container stats)
-- Terminal with 256-color support (recommended)
+```
+keeper-security-motd/
+├── keeper_motd_enhanced.sh    # Main MOTD script with animations
+├── security_tips.txt          # 251 Keeper-themed security tips
+└── README.md                  # This file
+```
 
-### Windows
-- PowerShell 5.0 or higher
-- Windows 10+ (for ANSI color support)
-- Docker Desktop (optional, for container stats)
-- Windows Terminal (recommended)
+## 🛡️ Security Tips Collection
 
-## Security Tips Collection
+The project includes **251 security tips** covering:
 
-The project includes 25+ security tips covering:
-- Password management best practices
-- Multi-factor authentication (2FA)
-- Phishing awareness
-- SSH key security
-- IoT device security
-- VPN usage
-- Zero-trust principles
-- Keeper Security features
-- And more!
+- **Password Management** - Best practices with Keeper
+- **Zero-Knowledge Architecture** - How Keeper protects your data
+- **Keeper Products** - Commander, KeeperChat, KeeperFill, Secrets Manager
+- **PAM & Privileged Access** - Enterprise security features
+- **Breach Watch** - Dark web monitoring
+- **2FA/MFA** - Multi-factor authentication
+- **Phishing Awareness** - Social engineering protection
+- **Compliance** - HIPAA, SOC 2, GDPR
+- **DevOps Security** - Secrets management for developers
 
-## Uninstallation
+All tips feature **dad-joke style humor** while delivering security awareness!
 
-### Linux/macOS
+## 💻 Requirements
+
+- **Linux** - Any distribution (tested on CentOS/RHEL)
+- **Bash** 4.0+ or **Zsh** 5.0+
+- **256-color terminal** support (most modern terminals)
+- **Docker** (optional - for container stats)
+- **Git** (optional - for project tracking)
+- Standard utilities: `free`, `df`, `uptime`, `awk`, `grep`
+
+## 🎯 Tested On
+
+- CentOS/RHEL 9
+- SSH login via Zsh
+- Docker environments
+- Tmux sessions
+- Multiple concurrent SSH connections
+
+## 🐛 Troubleshooting
+
+### MOTD not showing on SSH login
+
+1. Check your shell configuration:
 ```bash
-./uninstall.sh
+# For bash
+cat ~/.bashrc | grep keeper_motd
+
+# For zsh (if ZDOTDIR is set)
+cat ~/.config/zsh/.zlogin | grep keeper_motd
 ```
 
-### Windows
-```powershell
-# Remove files manually
-Remove-Item $env:USERPROFILE\.keeper_motd.ps1
-Remove-Item $env:USERPROFILE\.keeper_security_tips.txt
-
-# Edit PowerShell profile to remove MOTD call
-notepad $PROFILE
+2. Verify script is executable:
+```bash
+ls -l ~/.keeper_motd.sh
+chmod +x ~/.keeper_motd.sh
 ```
 
-## Contributing
+3. Test manually:
+```bash
+bash ~/.keeper_motd.sh
+```
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+### Colors not displaying
 
-### Quick Contribution Ideas
-1. Add new security tips
-2. Improve platform compatibility
-3. Add new metrics/features
-4. Submit bug fixes
-5. Improve documentation
+1. Check terminal color support:
+```bash
+echo $TERM
+# Should show something like: xterm-256color
+```
 
-## Troubleshooting
+2. Set terminal to 256-color mode:
+```bash
+export TERM=xterm-256color
+```
 
-### Colors not showing (Windows)
-- Use Windows Terminal instead of CMD
-- Ensure Windows 10+ with ANSI support
-- Check execution policy settings
+### System MOTD still showing
 
-### Colors not showing (Linux/macOS)
-- Verify 256-color terminal support: `echo $TERM`
-- Try: `export TERM=xterm-256color`
+Disable the system MOTD:
+```bash
+sudo truncate -s 0 /etc/motd
+```
 
-### MOTD not appearing on login
-- Check shell configuration file sourcing
-- Verify script is executable: `ls -l ~/.keeper_motd.sh`
-- Check for errors: `~/.keeper_motd.sh`
+### Tips not rotating
 
-### macOS: Tips not rotating
-- Install GNU coreutils: `brew install coreutils`
+Check the tips file exists and is readable:
+```bash
+ls -l ~/.keeper_security_tips.txt
+cat ~/.keeper_security_tips.txt | wc -l  # Should show 251
+```
 
-## License
+## 🤝 Contributing
 
-MIT License - see [LICENSE](LICENSE) file for details
+Contributions are welcome! Here's how you can help:
 
-## Credits
+1. **Add more security tips** - Submit PRs with new Keeper-themed jokes
+2. **Improve animations** - Enhance visual effects
+3. **Add features** - New metrics, dashboards, or integrations
+4. **Bug fixes** - Report and fix issues
+5. **Documentation** - Improve installation guides
 
-Created with love for the Keeper Security community.
+## 📝 Recent Changes
 
-## Related Projects
+- **v1.2** - Moved Security Tip to bottom of MOTD
+- **v1.1** - Expanded to 251 security tips with dad-joke style humor
+- **v1.0** - Added animations: gradient logo, vault unlocking, loading effects
+- **v0.9** - Initial release with basic MOTD and 25 tips
+
+## 📜 License
+
+MIT License - Feel free to use and modify for your own systems!
+
+## 🙏 Credits
+
+- **Keeper Security** - Inspiration and branding
+- **ASCII Art** - Custom Keeper logo design
+- **Security Tips** - Community-contributed humor and awareness
+
+## 🔗 Related Projects
 
 - [Keeper Security](https://www.keepersecurity.com/) - Official Keeper Security website
-- [Keeper Commander](https://github.com/Keeper-Security/Commander) - Keeper's command-line tool
+- [Keeper Commander](https://github.com/Keeper-Security/Commander) - CLI tool for Keeper
 
-## Screenshots
+## 💬 Support
 
-### Linux Terminal
-![Linux Preview](https://via.placeholder.com/800x400?text=Linux+Terminal+Preview)
+- ⭐ **Star this repo** if you find it useful!
+- 🐛 **Report bugs** via [GitHub Issues](https://github.com/jlima8900/keeper-security-motd/issues)
+- 💡 **Suggest features** or submit new security tips
+- 🔄 **Share** with your team and security community
 
-### macOS Terminal
-![macOS Preview](https://via.placeholder.com/800x400?text=macOS+Terminal+Preview)
+## 📊 Statistics
 
-### Windows PowerShell
-![Windows Preview](https://via.placeholder.com/800x400?text=Windows+PowerShell+Preview)
-
-## Support
-
-If you find this useful:
-- ⭐ Star this repository
-- 🐛 Report bugs via [Issues](https://github.com/jlima8900/keeper-security-motd/issues)
-- 💡 Suggest new features or security tips
-- 🔄 Share with your team!
-
-## Platform Support Matrix
-
-| Feature | Linux | macOS | Windows |
-|---------|-------|-------|---------|
-| ASCII Art | ✅ | ✅ | ✅ |
-| Security Tips | ✅ | ✅ | ✅ |
-| RAM Monitoring | ✅ | ✅ | ✅ |
-| Disk Monitoring | ✅ | ✅ | ✅ |
-| CPU Info | ✅ | ✅ | ✅ |
-| Docker Stats | ✅ | ✅ | ✅ |
-| Color Support | ✅ | ✅ | ⚠️ (Win10+) |
-| Auto-install | ✅ | ✅ | ⚠️ (Manual) |
+- **251** security tips and counting
+- **~400 lines** of bash animation code
+- **10+ sections** of system information
+- **3 animations**: logo gradient, vault unlock, loading sequences
+- **2 brand colors**: Keeper orange (#208) and blue (#33)
 
 ---
 
 **Stay Secure! 🔐**
 
-Made with ❤️ for better SSH security awareness across all platforms
+*Making SSH logins more secure and entertaining, one dad joke at a time.*
