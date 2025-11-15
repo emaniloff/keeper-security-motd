@@ -4,16 +4,17 @@ An animated, colorful Message of the Day (MOTD) system themed around Keeper Secu
 
 ![Keeper MOTD](https://img.shields.io/badge/security-keeper-orange)
 ![Platform](https://img.shields.io/badge/platform-Linux-green)
-![Tips](https://img.shields.io/badge/security_tips-251-blue)
+![Tips](https://img.shields.io/badge/security_tips-287-blue)
 ![Shell](https://img.shields.io/badge/shell-bash-brightgreen)
 
 ## ✨ Features
 
 - **🎨 Animated ASCII Logo** - Gradient color animation with Keeper golden yellow and black
 - **🔓 Vault Unlocking Animation** - Dynamic credential verification sequence
-- **💡 251 Security Tips** - Keeper-themed dad jokes and security awareness
+- **💡 287 Security Tips** - Keeper-themed dad jokes and security awareness (including LDAP/auth tips!)
 - **📊 Real-Time System Metrics** - RAM, Disk, CPU, and Uptime monitoring
 - **🐳 Docker Container Tracking** - Live container and Keeper service status
+- **🔑 LDAP & Authentication Monitoring** - SSSD status, auth methods, user statistics, OpenLDAP detection
 - **🔌 Connection Status** - SSH sessions, tmux, network interfaces
 - **📈 Activity Dashboard** - Git commits, shell history, docker events
 - **🎯 Quick Commands** - Helpful shortcuts displayed on every login
@@ -29,12 +30,13 @@ When you SSH into your server, you'll see:
 3. **System Status** - Hostname, uptime, load average, active users
 4. **Resource Vault Status** - RAM/Disk/CPU with visual progress bars
 5. **Active Containers** - Docker and Keeper service counts
-6. **Projects & Automation** - Current git project, branch status
-7. **Connection & Security Status** - SSH sessions, last login, network info
-8. **Recent Activity** - Shell commands, git commits, docker events
-9. **Quick Commands** - Handy shortcuts for keeper-status, docker, git, etc.
-10. **Motivational Quote** - Security-focused inspiration
-11. **Security Tip of the Day** - One of 251 Keeper-themed dad jokes!
+6. **Authentication & Directory Services** - SSSD status, LDAP monitoring, user statistics, auth methods
+7. **Projects & Automation** - Current git project, branch status
+8. **Connection & Security Status** - SSH sessions, last login, network info
+9. **Recent Activity** - Shell commands, git commits, docker events
+10. **Quick Commands** - Handy shortcuts for keeper-status, docker, git, etc.
+11. **Motivational Quote** - Security-focused inspiration
+12. **Security Tip of the Day** - One of 287 Keeper-themed dad jokes (including LDAP humor)!
 
 ## 📦 Installation
 
@@ -131,13 +133,14 @@ Comment out sections you don't need in `~/.keeper_motd.sh`:
 ```
 keeper-security-motd/
 ├── keeper_motd_enhanced.sh    # Main MOTD script with animations
-├── security_tips.txt          # 251 Keeper-themed security tips
+├── keeper_motd.sh             # Enhanced MOTD with LDAP monitoring
+├── security_tips.txt          # 287 Keeper-themed security tips
 └── README.md                  # This file
 ```
 
 ## 🛡️ Security Tips Collection
 
-The project includes **251 security tips** covering:
+The project includes **287 security tips** covering:
 
 - **Password Management** - Best practices with Keeper
 - **Zero-Knowledge Architecture** - How Keeper protects your data
@@ -148,6 +151,8 @@ The project includes **251 security tips** covering:
 - **Phishing Awareness** - Social engineering protection
 - **Compliance** - HIPAA, SOC 2, GDPR
 - **DevOps Security** - Secrets management for developers
+- **LDAP & Authentication** - Directory services, SSSD, authentication best practices (NEW!)
+- **Identity Management** - User lifecycle, access control, domain security (NEW!)
 
 All tips feature **dad-joke style humor** while delivering security awareness!
 
@@ -232,6 +237,13 @@ Contributions are welcome! Here's how you can help:
 
 ## 📝 Recent Changes
 
+- **v1.3** - Added LDAP & Authentication monitoring section with 35+ new security tips (287 total!)
+  - SSSD service status monitoring
+  - Authentication method detection (SSSD/LDAP/local)
+  - OpenLDAP package and port detection
+  - User statistics (local/system/total)
+  - Last login tracking
+  - Fixed hardcoded paths to use $HOME variable
 - **v1.2** - Moved Security Tip to bottom of MOTD
 - **v1.1** - Expanded to 251 security tips with dad-joke style humor
 - **v1.0** - Added animations: gradient logo, vault unlocking, loading effects
@@ -261,9 +273,9 @@ MIT License - Feel free to use and modify for your own systems!
 
 ## 📊 Statistics
 
-- **251** security tips and counting
-- **~400 lines** of bash animation code
-- **10+ sections** of system information
+- **287** security tips and counting (including 35+ LDAP/auth tips!)
+- **~550 lines** of bash animation code
+- **12+ sections** of system information (including LDAP monitoring!)
 - **3 animations**: logo gradient, vault unlock, loading sequences
 - **2 brand colors**: Keeper golden yellow (#220) and black (#232)
 

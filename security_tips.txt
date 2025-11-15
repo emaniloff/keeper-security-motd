@@ -250,3 +250,38 @@ If passwords were grades, most people get Ds. Keeper users get A+ with extra cre
 Why did the security roadmap succeed? Keeper was the foundation, not an afterthought!
 Your Keeper implementation is the gift that keeps on giving - security every single day!
 Remember: Today's password breach is yesterday's weak password. Keeper prevents tomorrow's headaches!
+Why did LDAP go to therapy? Too many binding issues!
+SSSD is like a bouncer - it checks everyone's credentials before letting them in!
+Why was the LDAP admin always calm? They knew how to handle Distinguished Names under pressure!
+Your authentication system is more layered than your network security. Both need protection!
+Why did the sysadmin love SSSD? It cached credentials faster than they could say 'kinit'!
+LDAP without encryption is like shouting your password in a crowded room. Use LDAPS!
+Why did the directory service get a promotion? It always knew how to organize users!
+Your SSSD configuration is tighter than your firewall rules. Keep it that way!
+Remember: Anonymous LDAP binds are like unlocked doors - convenient but dangerous!
+Why was the authentication server popular? Everyone wanted to get validated!
+LDAP injection attacks are real. Sanitize those inputs like you sanitize your hands!
+Why did the domain controller go on vacation? It needed to resolve some issues!
+Your Kerberos tickets expire for a reason - rotate them like you rotate your coffee!
+Why was SSSD better than direct LDAP? It had a cache for every occasion!
+Remember: Bind passwords in plaintext configs are security nightmares waiting to happen!
+Why did the LDAP search fail? The filter couldn't handle the truth!
+Your authentication backend should be redundant like your backups. One is none!
+Why was the directory schema perfect? Every attribute had its proper object class!
+SSSD offline mode is like airplane mode - essential when connectivity fails!
+Remember: LDAP over port 389 is clear text. Port 636 is where security starts!
+Why did the user authentication succeed? Multi-factor was enabled from day one!
+Your directory replication should be faster than your coffee maker. Both prevent outages!
+Why was the LDAP tree well-organized? Proper OU structure from the root!
+Remember: Service accounts need Keeper too - they're users with elevated privileges!
+Why did SSSD cache credentials? Network outages don't respect business hours!
+Your LDAP ACLs should be stricter than your code reviews. Least privilege wins!
+Why was the authentication audit clean? Every login was logged and monitored!
+STARTTLS for LDAP is mandatory, not optional. Encrypt all the things!
+Why did the domain admin use Keeper PAM? Privileged access needed extra protection!
+Your SSSD domains should be documented better than your API endpoints!
+Remember: Default LDAP admin passwords are the first thing attackers try!
+Why was the directory service reliable? High availability and proper monitoring!
+LDAP password policies without enforcement are suggestions, not security!
+Why did the authentication system scale? Proper planning and load balancing!
+Your SSSD failover configuration is more important than your morning coffee routine!

@@ -241,6 +241,70 @@ fi
 echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
+# Loading animation for authentication
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Checking authentication"
+for i in {1..3}; do echo -n "."; sleep 0.05; done
+echo -e " ${BGREEN}✓${RESET}"
+sleep 0.1
+
+# LDAP & Authentication Status with Keeper branding
+echo -e "${KEEPER_GOLD}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${BWHITE}🔑 AUTHENTICATION & DIRECTORY SERVICES${RESET}                                    ${KEEPER_GOLD}║${RESET}"
+echo -e "${KEEPER_GOLD}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+
+# Check SSSD service status
+if systemctl is-active --quiet sssd 2>/dev/null; then
+    SSSD_STATUS="${BGREEN}✓ ACTIVE${RESET}"
+    SSSD_DOMAINS=$(sssctl domain-list 2>/dev/null | wc -l || echo "0")
+else
+    SSSD_STATUS="${DIM}INACTIVE${RESET}"
+    SSSD_DOMAINS="0"
+fi
+
+# Check nsswitch configuration
+PASSWD_BACKENDS=$(grep "^passwd:" /etc/nsswitch.conf 2>/dev/null | sed 's/passwd://' | xargs)
+if echo "$PASSWD_BACKENDS" | grep -q "sss"; then
+    AUTH_METHOD="${KEEPER_GOLD}SSSD${RESET} ${DIM}(configured)${RESET}"
+elif echo "$PASSWD_BACKENDS" | grep -q "ldap"; then
+    AUTH_METHOD="${KEEPER_GOLD}LDAP${RESET} ${DIM}(configured)${RESET}"
+else
+    AUTH_METHOD="${DIM}Local files only${RESET}"
+fi
+
+# User statistics
+TOTAL_USERS=$(getent passwd | wc -l)
+LOCAL_USERS=$(getent passwd | awk -F: '$3 >= 1000 && $3 != 65534 {print $1}' | wc -l)
+SYSTEM_USERS=$((TOTAL_USERS - LOCAL_USERS))
+
+# Check for OpenLDAP packages
+if rpm -q openldap &>/dev/null; then
+    LDAP_PACKAGE="${BGREEN}✓${RESET} Installed"
+else
+    LDAP_PACKAGE="${DIM}Not installed${RESET}"
+fi
+
+# Check for LDAP port listeners
+LDAP_LISTENING=$(ss -tlnp 2>/dev/null | grep -E ':(389|636)' | wc -l)
+if [ "$LDAP_LISTENING" -gt 0 ]; then
+    LDAP_PORT_STATUS="${BGREEN}✓${RESET} ${KEEPER_GOLD}${LDAP_LISTENING}${RESET} port(s) listening"
+else
+    LDAP_PORT_STATUS="${DIM}No LDAP ports listening${RESET}"
+fi
+
+echo -e "${KEEPER_GOLD}║${RESET}  ${CYAN}SSSD Status:${RESET}     ${SSSD_STATUS} ${DIM}│${RESET} ${CYAN}Domains:${RESET} ${KEEPER_GOLD}${SSSD_DOMAINS}${RESET}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${CYAN}Auth Method:${RESET}     ${AUTH_METHOD}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${CYAN}OpenLDAP:${RESET}        ${LDAP_PACKAGE} ${DIM}│${RESET} ${LDAP_PORT_STATUS}"
+echo -e "${KEEPER_GOLD}║${RESET}  ${CYAN}Users:${RESET}           ${KEEPER_GOLD}${LOCAL_USERS}${RESET} local ${DIM}│${RESET} ${KEEPER_GOLD}${SYSTEM_USERS}${RESET} system ${DIM}│${RESET} ${KEEPER_GOLD}${TOTAL_USERS}${RESET} total"
+
+# Show last LDAP/domain user login if available
+LAST_DOMAIN_USER=$(last -w | grep -v "^wtmp\|^$\|^reboot" | head -1 | awk '{print $1}')
+if [ -n "$LAST_DOMAIN_USER" ]; then
+    echo -e "${KEEPER_GOLD}║${RESET}  ${CYAN}Last Login:${RESET}      ${DIM}${LAST_DOMAIN_USER}${RESET}"
+fi
+
+echo -e "${KEEPER_GOLD}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo ""
+
 # Warnings if resources are critical
 if [ "$RAM_PCT" -ge 85 ] || [ "$DISK_PCT" -ge 85 ]; then
     echo -e "${BRED}⚠️  ${BWHITE}WARNING: System resources running high!${RESET} ${BRED}⚠️${RESET}"
