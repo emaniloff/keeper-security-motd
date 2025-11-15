@@ -241,16 +241,6 @@ fi
 echo -e "${KEEPER_BLUE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
-# Security Tip with Keeper branding
-echo -e "${KEEPER_ORANGE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${BWHITE}🛡️  SECURITY TIP OF THE DAY${RESET}                                                ${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}${SECURITY_TIP}${RESET}"
-echo -e "${KEEPER_ORANGE}║${RESET}"
-echo -e "${KEEPER_ORANGE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
-echo ""
-
 # Warnings if resources are critical
 if [ "$RAM_PCT" -ge 85 ] || [ "$DISK_PCT" -ge 85 ]; then
     echo -e "${BRED}⚠️  ${BWHITE}WARNING: System resources running high!${RESET} ${BRED}⚠️${RESET}"
@@ -403,4 +393,14 @@ RANDOM_QUOTE=${QUOTES[$RANDOM % ${#QUOTES[@]}]}
 echo -e "${KEEPER_ORANGE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 echo -e "${KEEPER_BLUE}💡 ${BWHITE}${RANDOM_QUOTE}${RESET}"
 echo -e "${KEEPER_ORANGE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+echo ""
+
+# Security Tip of the Day at the bottom
+echo -e "${KEEPER_ORANGE}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_ORANGE}║${RESET}  ${BWHITE}🛡️  SECURITY TIP OF THE DAY${RESET}                                                ${KEEPER_ORANGE}║${RESET}"
+echo -e "${KEEPER_ORANGE}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+echo -e "${KEEPER_ORANGE}║${RESET}"
+echo -e "${KEEPER_ORANGE}║${RESET}  ${KEEPER_BLUE}${SECURITY_TIP}${RESET}"
+echo -e "${KEEPER_ORANGE}║${RESET}"
+echo -e "${KEEPER_ORANGE}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
