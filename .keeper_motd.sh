@@ -37,6 +37,10 @@ KEEPER_GOLD='\033[38;5;220m'      # Golden yellow primary
 KEEPER_BLACK='\033[38;5;232m'     # Black secondary
 KEEPER_DARK='\033[38;5;240m'      # Dark gray for subtle elements
 
+# Get terminal width and calculate box width
+TERM_WIDTH=$(tput cols 2>/dev/null || echo 80)
+BOX_WIDTH=$((TERM_WIDTH > 120 ? 120 : TERM_WIDTH - 2))  # Max 120 chars, minimum 2 chars for borders
+
 # Get system info (with caching to speed up login)
 HOSTNAME=$(hostname)
 UPTIME=$(uptime -p | sed 's/up //')
@@ -131,7 +135,7 @@ spinner() {
     printf "    \b\b\b\b"
 }
 
-# Animated Keeper logo with gradient effect
+# Animated Keeper + LAPD unified logo
 show_keeper_logo() {
     # Keeper signature orange to blue gradient
     local line1="${KEEPER_GOLD}"
@@ -141,28 +145,22 @@ show_keeper_logo() {
     local line5="${KEEPER_BLACK}"
     local line6="${BBLUE}"
 
-    echo -e "${line1}    ██╗  ██╗███████╗███████╗██████╗ ███████╗██████╗${RESET}"
+    echo -e "${line1}    ██╗  ██╗███████╗███████╗██████╗ ███████╗██████╗${RESET}  ${BRED}+${RESET}  ${BGREEN}██╗      █████╗ ██████╗ ██████╗${RESET}"
     sleep 0.03
-    echo -e "${line2}    ██║ ██╔╝██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗${RESET}"
+    echo -e "${line2}    ██║ ██╔╝██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗${RESET} ${BRED}╬${RESET}  ${BGREEN}██║     ██╔══██╗██╔══██╗██╔══██╗${RESET}"
     sleep 0.03
-    echo -e "${line3}    █████╔╝ █████╗  █████╗  ██████╔╝█████╗  ██████╔╝${RESET}"
+    echo -e "${line3}    █████╔╝ █████╗  █████╗  ██████╔╝█████╗  ██████╔╝${RESET} ${BRED}╬${RESET}  ${GREEN}██║     ███████║██████╔╝██║  ██║${RESET}"
     sleep 0.03
-    echo -e "${line4}    ██╔═██╗ ██╔══╝  ██╔══╝  ██╔═══╝ ██╔══╝  ██╔══██╗${RESET}"
+    echo -e "${line4}    ██╔═██╗ ██╔══╝  ██╔══╝  ██╔═══╝ ██╔══╝  ██╔══██╗${RESET} ${BRED}╬${RESET}  ${GREEN}██║     ██╔══██║██╔═══╝ ██║  ██║${RESET}"
     sleep 0.03
-    echo -e "${line5}    ██║  ██╗███████╗███████╗██║     ███████╗██║  ██║${RESET}"
+    echo -e "${line5}    ██║  ██╗███████╗███████╗██║     ███████╗██║  ██║${RESET} ${BRED}+${RESET}  ${DIM}███████╗██║  ██║██║     ██████╔╝${RESET}"
     sleep 0.03
-    echo -e "${line6}    ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝${RESET}"
+    echo -e "${line6}    ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝${RESET}      ${DIM}╚══════╝╚═╝  ╚═╝╚═╝     ╚═════╝${RESET}"
 
     echo ""
-
-    # Animated subtitle with pulsing effect
-    for i in {1..2}; do
-        echo -ne "\r         ${BWHITE}${BLINK}🔐 SECURITY COMMAND CENTER 🔐${RESET}"
-        sleep 0.3
-        echo -ne "\r         ${KEEPER_GOLD}🔐 SECURITY COMMAND CENTER 🔐${RESET}"
-        sleep 0.3
-    done
-    echo -e "\r         ${BWHITE}🔐 SECURITY COMMAND CENTER 🔐${RESET}"
+    echo -e "        ${KEEPER_GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    echo -e "              ${BWHITE}🔐 INTEGRATED SECURITY & THREAT DETECTION 🚨${RESET}"
+    echo -e "        ${KEEPER_GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
     echo ""
 }
 
@@ -360,6 +358,69 @@ echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Active IPs:${RESET}      ${KEEPER_GO
 echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
 echo ""
 
+# Loading animation for LAPD threat analysis
+echo -ne "${KEEPER_GOLD}>>> ${RESET}Threat detection (LAPD)"
+for i in {1..3}; do echo -n "."; sleep 0.05; done
+echo -e " ${BGREEN}✓${RESET}"
+sleep 0.1
+
+# LAPD Integrated Threat Summary
+echo -e "${KEEPER_BLACK}╔════════════════════════════════════════════════════════════════════════════╗${RESET}"
+echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}🚨 THREAT DETECTION & PROTOCOL ANALYSIS (L.A.P.D.)${RESET}                       ${KEEPER_BLACK}║${RESET}"
+echo -e "${KEEPER_BLACK}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
+
+# Comprehensive LAPD analysis
+CURRENT_DATE=$(date '+%b %e' | sed 's/  / /')
+TOTAL_THREATS=0
+
+# SSH Analysis
+SSH_LOG="/var/log/secure"
+if [ -f "$SSH_LOG" ]; then
+    SSH_FAILURES=$(grep -Ei "Failed|authentication failure" "$SSH_LOG" 2>/dev/null | grep "$CURRENT_DATE" | wc -l)
+    TOP_THREAT=$(grep -Ei "Failed|authentication failure" "$SSH_LOG" 2>/dev/null | grep "$CURRENT_DATE" | grep -oP '(\d{1,3}\.){3}\d{1,3}' | sort | uniq -c | sort -nr | head -1)
+    UNIQUE_ATTACKERS=$(grep -Ei "Failed|authentication failure" "$SSH_LOG" 2>/dev/null | grep "$CURRENT_DATE" | grep -oP '(\d{1,3}\.){3}\d{1,3}' | sort -u | wc -l)
+
+    TOTAL_THREATS=$((TOTAL_THREATS + SSH_FAILURES))
+
+    if [ "$SSH_FAILURES" -gt 0 ]; then
+        THREAT_COUNT=$(echo "$TOP_THREAT" | awk '{print $1}')
+        THREAT_IP=$(echo "$TOP_THREAT" | awk '{print $2}')
+        echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}SSH Threats:${RESET}     ${BRED}${SSH_FAILURES}${RESET} attempts ${DIM}│${RESET} ${YELLOW}${UNIQUE_ATTACKERS}${RESET} unique IPs ${DIM}│${RESET} Top: ${YELLOW}${THREAT_IP}${RESET} (${THREAT_COUNT}x)"
+    else
+        echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}SSH Threats:${RESET}     ${BGREEN}✓${RESET} ${DIM}No failed attempts detected${RESET}"
+    fi
+else
+    echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}SSH Threats:${RESET}     ${DIM}Log not available${RESET}"
+fi
+
+# Fail2ban status
+FAIL2BAN_LOG="/var/log/fail2ban.log"
+if [ -f "$FAIL2BAN_LOG" ]; then
+    BANNED_TODAY=$(grep "Ban" "$FAIL2BAN_LOG" 2>/dev/null | grep "$CURRENT_DATE" | wc -l)
+    ACTIVE_BANS=$(fail2ban-client status sshd 2>/dev/null | grep "Currently banned" | awk '{print $NF}' || echo "0")
+    if [ "$BANNED_TODAY" -gt 0 ]; then
+        echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Fail2ban:${RESET}        ${BRED}${BANNED_TODAY}${RESET} banned today ${DIM}│${RESET} ${YELLOW}${ACTIVE_BANS}${RESET} currently blocked"
+    else
+        echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Fail2ban:${RESET}        ${BGREEN}✓${RESET} ${DIM}No bans today ${DIM}│${RESET} ${YELLOW}${ACTIVE_BANS}${RESET} active blocks"
+    fi
+fi
+
+# Overall threat level
+if [ "$TOTAL_THREATS" -gt 1000 ]; then
+    THREAT_LEVEL="${BRED}CRITICAL${RESET}"
+elif [ "$TOTAL_THREATS" -gt 500 ]; then
+    THREAT_LEVEL="${YELLOW}ELEVATED${RESET}"
+elif [ "$TOTAL_THREATS" -gt 0 ]; then
+    THREAT_LEVEL="${BYELLOW}MODERATE${RESET}"
+else
+    THREAT_LEVEL="${BGREEN}NORMAL${RESET}"
+fi
+
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}Threat Level:${RESET}    ${THREAT_LEVEL} ${DIM}│${RESET} Total incidents: ${KEEPER_GOLD}${TOTAL_THREATS}${RESET}"
+
+echo -e "${KEEPER_BLACK}╚════════════════════════════════════════════════════════════════════════════╝${RESET}"
+echo ""
+
 # Loading animation for activity
 echo -ne "${KEEPER_GOLD}>>> ${RESET}Analyzing activity"
 for i in {1..3}; do echo -n "."; sleep 0.05; done
@@ -400,6 +461,7 @@ echo -e "${KEEPER_BLACK}╔═════════════════�
 echo -e "${KEEPER_BLACK}║${RESET}  ${KEEPER_GOLD}⚡ QUICK COMMANDS${RESET}                                                             ${KEEPER_BLACK}║${RESET}"
 echo -e "${KEEPER_BLACK}╠════════════════════════════════════════════════════════════════════════════╣${RESET}"
 echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}keeper-status${RESET}  ${DIM}│${RESET} Check Keeper services"
+echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}lapd-report${RESET}    ${DIM}│${RESET} Full LAPD security analysis"
 echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}docker ps${RESET}      ${DIM}│${RESET} List containers"
 echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}htop${RESET}           ${DIM}│${RESET} System monitor"
 echo -e "${KEEPER_BLACK}║${RESET}  ${CYAN}tmux attach${RESET}    ${DIM}│${RESET} Attach to session"
