@@ -28,12 +28,20 @@ export KMP_BLOCKTIME=0
 export PATH=$HOME/.ollama/bin:$PATH
 export PATH=$HOME/.ollama/bin:$PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export SECURITY_NEXUS_API_KEY="nexus-secure-key-2025"
-export SECURITY_NEXUS_API_KEY=snx-sTvZNmVJEDOu7XeV9OyL3nrzQbbxOSQXPVjR2BlK0SQ
-export SECURITY_NEXUS_API_KEY=snx-Qhyut4rkwqEeqaDsYEslsLDB5gq9niEmGy_p-MnyCaw
-export SECURITY_NEXUS_API_KEY=snx-W2jHfjJXyZCc6cXb6q-Ks94c8RRZAniFyrlWrGkuzEE
-export SECURITY_NEXUS_API_KEY="snx-W2jHfjJXyZCc6cXb6q-Ks94c8RRZAniFyrlWrGkuzEE"
-export CLAUDE_DEV_ROOT="/root/claude-development"
+
+# ============================================
+# CREDENTIALS - Load from .env file
+# ============================================
+# SECURITY: Never hardcode credentials here!
+# Create a .env file with your secrets:
+#   cp .env.example .env
+#   nano .env
+# The .env file is automatically ignored by git
+if [ -f "$HOME/.env" ]; then
+    source "$HOME/.env"
+fi
+
+export CLAUDE_DEV_ROOT="${CLAUDE_DEV_ROOT:-/root/claude-development}"
 
 # Universal Automation System - Claude Code Integration
 export UNIVERSAL_AUTOMATION_PATH="/root/Desktop/Projects/Backup-manager"

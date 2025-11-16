@@ -15,3 +15,77 @@ Thumbs.db
 
 # Test files
 test_output.txt
+
+# ============================================
+# CREDENTIALS & SECRETS
+# ============================================
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.template
+*.env
+.envrc
+
+# API Keys & Tokens
+*_api_key*
+*_token*
+*_secret*
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+credentials.yml
+credentials.yaml
+secrets.json
+secrets.yml
+secrets.yaml
+
+# Authentication & Access
+auth.json
+auth.yml
+.htpasswd
+.netrc
+
+# Cloud provider credentials
+.aws/credentials
+.aws/config
+gcp-credentials.json
+azure-credentials.json
+
+# SSH & GPG
+id_rsa
+id_dsa
+id_ed25519
+*.ppk
+private_key
+public_key
+.ssh/
+
+# Database credentials
+database.yml
+database.json
+db.config
+
+# Configuration files that may contain secrets
+config.local.*
+settings.local.*
+*.local.conf
+*-local.conf
+
+# Keeper Security specific
+keeper.ini
+keeper.config
+keeper_credentials.*
+
+# Claude/Anthropic API keys
+anthropic.key
+claude.key
+.anthropic
+.claude-key
+
+# Security Nexus (from the exposed keys in .bashrc)
+*nexus*.key
+*nexus*_credentials*
